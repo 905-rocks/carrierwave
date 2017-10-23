@@ -143,7 +143,11 @@ module CarrierWave
         end
 
         def #{column}=(new_file)
-          _mounter(:#{column}).cache([new_file])
+          if new_file.is_a? String
+            super
+          else
+            _mounter(:#{column}).cache([new_file])
+          end
         end
 
         def #{column}_url(*args)
